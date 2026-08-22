@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bahasa Buddy — Friendly Indonesian Lessons for Travelers</title>
+<meta name="description" content="Beginner-friendly Indonesian language classes for foreign travelers in Bali. Learn to greet, order, bargain and chat with locals with confidence.">
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    /* ============ COLOR PALETTE — edit here to change the theme ============ */
+    --bg: #FDF9F0;            /* warm cream, page base */
+    --surface: #FFFFFF;       /* white for cards */
+    --ink: #23322E;           /* main text, soft green-black */
+    --ink-soft: #5C6B66;      /* secondary text */
+    --teal: #2F9C8F;          /* primary color — Bali ocean */
+    --teal-dark: #227A70;
+    --teal-tint: #E7F4F1;     /* very light teal for section backgrounds */
+    --coral: #FF8A65;         /* second accent — sunset */
+    --coral-tint: #FFEDE6;
+    --mango: #F5B942;         /* third accent — highlights/badges */
+    --mango-tint: #FDF0D9;
+    --line: #E7E1D3;
+
+    --font-display: 'Baloo 2', system-ui, sans-serif;
+    --font-body: 'Plus Jakarta Sans', system-ui, sans-serif;
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  body{
+    margin:0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  img{ max-width:100%; display:block; }
+  a{ color:inherit; }
+  h1,h2,h3{ font-family: var(--font-display); margin:0; line-height:1.15; }
+  p{ margin:0; }
+  .wrap{ max-width: 1120px; margin:0 auto; padding: 0 24px; }
+  section{ padding: 88px 0; }
+  @media (max-width:720px){ section{ padding: 56px 0; } }
+
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font-size:13px; font-weight:700; letter-spacing:.06em; text-transform:uppercase;
+    color: var(--teal-dark);
+    background: var(--teal-tint);
+    padding:6px 14px; border-radius:999px;
+  }
+
+  /* ---------- Buttons ---------- */
+  .btn{
+    display:inline-flex; align-items:center; gap:10px;
+    font-family: var(--font-body); font-weight:700; font-size:16px;
+    padding:14px 26px; border-radius:14px;
+    text-decoration:none; border:2px solid transparent;
+    cursor:pointer; transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+  }
+  .btn:hover{ transform: translateY(-2px); }
+  .btn:focus-visible{ outline:3px solid var(--mango); outline-offset:3px; }
+  .btn-primary{
+    background: var(--teal); color:#fff;
+    box-shadow: 0 8px 20px -8px rgba(47,156,143,.6);
+  }
+  .btn-primary:hover{ background: var(--teal-dark); }
+  .btn-ghost{
+    background: transparent; color: var(--ink); border-color: var(--line);
+  }
+  .btn-ghost:hover{ border-color: var(--teal); color: var(--teal-dark); }
+  .btn svg{ width:20px; height:20px; flex-shrink:0; }
+
+  /* ---------- Header ---------- */
+  header{
+    position: sticky; top:0; z-index:50;
+    background: rgba(253,249,240,.85);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 16px 24px;
+  }
+  .logo{
+    display:flex; align-items:center; gap:10px;
+    font-family: var(--font-display); font-weight:700; font-size:20px;
+    text-decoration:none; color: var(--ink);
+  }
+  .logo-mark{
+    width:38px; height:38px; border-radius:11px;
+    background: linear-gradient(135deg, var(--teal), var(--coral));
+    display:flex; align-items:center; justify-content:center;
+    color:#fff; font-family: var(--font-display); font-weight:800; font-size:18px;
+  }
+  .nav-links{ display:flex; align-items:center; gap:28px; list-style:none; margin:0; padding:0; }
+  .nav-links a{ text-decoration:none; font-weight:600; font-size:15px; color: var(--ink-soft); transition:color .15s; }
+  .nav-links a:hover{ color: var(--teal-dark); }
+  .nav-cta{ display:flex; align-items:center; gap:16px; }
+  .nav-toggle{ display:none; background:none; border:none; cursor:pointer; padding:6px; }
+  .nav-toggle svg{ width:26px; height:26px; }
+
+  @media (max-width: 860px){
+    .nav-links{
+      position:absolute; top:100%; left:0; right:0;
+      flex-direction:column; align-items:flex-start; gap:0;
+      background: var(--surface); border-bottom:1px solid var(--line);
+      max-height:0; overflow:hidden; transition: max-height .25s ease;
+    }
+    .nav-links.open{ max-height:320px; }
+    .nav-links li{ width:100%; }
+    .nav-links a{ display:block; padding:16px 24px; width:100%; border-bottom:1px solid var(--line); }
+    .nav-toggle{ display:block; }
+    .nav-cta .btn-ghost{ display:none; }
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{ padding: 72px 0 100px; overflow:hidden; }
+  .hero-grid{
+    display:grid; grid-template-columns: 1.05fr .95fr; gap:56px; align-items:center;
+  }
+  @media (max-width: 900px){ .hero-grid{ grid-template-columns:1fr; } }
+
+  .hero h1{
+    font-size: clamp(34px, 5vw, 54px);
+    font-weight: 700;
+    margin: 18px 0 20px;
+    color: var(--ink);
+  }
+  .hero h1 em{ font-style:normal; color: var(--teal-dark); }
+  .hero p.lead{ font-size:18px; color: var(--ink-soft); max-width: 480px; margin-bottom: 32px; }
+  .hero-actions{ display:flex; flex-wrap:wrap; gap:14px; margin-bottom: 28px; }
+  .hero-trust{ display:flex; align-items:center; gap:10px; font-size:14px; color: var(--ink-soft); font-weight:600; }
+  .hero-trust .dot{ width:8px; height:8px; border-radius:50%; background: var(--mango); }
+
+  /* Signature element: flip cards, English prompt <-> Indonesian phrase */
+  .card-stack{ position:relative; height: 420px; }
+  .phrase-card{
+    position:absolute; width: 300px; max-width:80vw; padding:26px;
+    background: var(--surface); border-radius:22px;
+    border:1px solid var(--line);
+    box-shadow: 0 24px 50px -20px rgba(35,50,46,.25);
+    cursor: pointer; user-select:none;
+    transition: transform .5s cubic-bezier(.2,.8,.2,1);
+  }
+  .phrase-card .tag{
+    display:inline-block; font-size:11px; font-weight:800; letter-spacing:.08em;
+    text-transform:uppercase; padding:4px 10px; border-radius:999px; margin-bottom:14px;
+  }
+  .phrase-card.face-en .tag{ background: var(--teal-tint); color: var(--teal-dark); }
+  .phrase-card.face-id .tag{ background: var(--coral-tint); color: #C55A3A; }
+  .phrase-card .main{ font-family: var(--font-display); font-size:22px; font-weight:600; margin-bottom:6px; }
+  .phrase-card .sub{ font-size:14px; color: var(--ink-soft); }
+  .phrase-card .hint{ margin-top:16px; font-size:12px; color:#9AA6A1; font-weight:600; }
+
+  .card-1{ top:0; left:0; z-index:3; }
+  .card-2{ top:70px; left:120px; z-index:2; background: var(--teal-tint); }
+  .card-3{ top:170px; left:20px; z-index:1; background: var(--mango-tint); }
+  @media (max-width: 900px){
+    .card-stack{ height:340px; }
+    .card-2{ left:60px; } .card-3{ left:10px; }
+  }
+
+  /* ---------- Why us / features ---------- */
+  .section-head{ max-width:640px; margin-bottom:48px; }
+  .section-head h2{ font-size: clamp(28px,3.4vw,38px); margin: 14px 0 12px; }
+  .section-head p{ color: var(--ink-soft); font-size:17px; }
+
+  .feature-grid{ display:grid; grid-template-columns: repeat(3, 1fr); gap:20px; }
+  @media (max-width:820px){ .feature-grid{ grid-template-columns: 1fr 1fr; } }
+  @media (max-width:560px){ .feature-grid{ grid-template-columns: 1fr; } }
+  .feature-card{
+    background: var(--surface); border:1px solid var(--line); border-radius:18px;
+    padding:26px; transition: transform .2s ease, box-shadow .2s ease;
+  }
+  .feature-card:hover{ transform: translateY(-4px); box-shadow: 0 16px 32px -18px rgba(35,50,46,.25); }
+  .feature-icon{
+    width:46px; height:46px; border-radius:13px; display:flex; align-items:center; justify-content:center;
+    margin-bottom:16px; color:#fff;
+  }
+  .feature-card h3{ font-size:18px; margin-bottom:8px; }
+  .feature-card p{ color: var(--ink-soft); font-size:15px; }
+
+  /* ---------- Course topics ---------- */
+  .materi{ background: var(--teal-tint); }
+  .materi-grid{ display:grid; grid-template-columns: repeat(4, 1fr); gap:16px; }
+  @media (max-width:900px){ .materi-grid{ grid-template-columns: repeat(2,1fr); } }
+  @media (max-width:520px){ .materi-grid{ grid-template-columns: 1fr; } }
+  .materi-item{
+    background: var(--surface); border-radius:16px; padding:22px;
+    border: 1px solid transparent;
+    display:flex; flex-direction:column; gap:8px;
+  }
+  .materi-item .num{ font-family: var(--font-display); font-weight:700; color: var(--coral); font-size:14px; }
+  .materi-item h3{ font-size:16px; }
+  .materi-item p{ font-size:14px; color: var(--ink-soft); }
+
+  /* ---------- How it works ---------- */
+  .flow{ display:grid; grid-template-columns: repeat(4,1fr); gap:0; counter-reset: step; }
+  @media (max-width:820px){ .flow{ grid-template-columns:1fr; gap:28px; } }
+  .flow-step{ position:relative; padding: 0 20px 0 0; }
+  .flow-step:not(:last-child)::after{
+    content:""; position:absolute; top:22px; left:calc(100% - 10px); width:calc(100% - 20px);
+    height:2px; background: var(--line);
+  }
+  @media (max-width:820px){ .flow-step:not(:last-child)::after{ display:none; } }
+  .flow-badge{
+    width:44px; height:44px; border-radius:50%; background: var(--teal); color:#fff;
+    display:flex; align-items:center; justify-content:center; font-family: var(--font-display);
+    font-weight:700; font-size:17px; margin-bottom:16px; position:relative; z-index:1;
+  }
+  .flow-step h3{ font-size:17px; margin-bottom:8px; }
+  .flow-step p{ font-size:14px; color: var(--ink-soft); }
+
+  /* ---------- Testimonials ---------- */
+  .testi-strip{
+    display:flex; gap:20px; overflow-x:auto; padding-bottom:8px; scroll-snap-type:x mandatory;
+  }
+  .testi-card{
+    flex: 0 0 300px; scroll-snap-align:start;
+    background: var(--surface); border:1px solid var(--line); border-radius:18px; padding:24px;
+  }
+  .testi-stars{ color: var(--mango); font-size:15px; margin-bottom:12px; letter-spacing:2px; }
+  .testi-card p.quote{ font-size:15px; color: var(--ink); margin-bottom:16px; }
+  .testi-who{ display:flex; align-items:center; gap:10px; }
+  .testi-avatar{
+    width:38px; height:38px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+    font-family: var(--font-display); font-weight:700; color:#fff; font-size:14px;
+  }
+  .testi-who strong{ display:block; font-size:14px; }
+  .testi-who span{ font-size:13px; color: var(--ink-soft); }
+
+  /* ---------- Contact / CTA ---------- */
+  .kontak{
+    background: linear-gradient(135deg, var(--teal-dark), var(--teal));
+    border-radius: 28px; padding: 56px; color:#fff;
+    display:grid; grid-template-columns: 1.1fr .9fr; gap:40px; align-items:center;
+  }
+  @media (max-width:820px){ .kontak{ grid-template-columns:1fr; padding:36px 24px; } }
+  .kontak h2{ font-size: clamp(26px,3.2vw,34px); color:#fff; margin-bottom:14px; }
+  .kontak p{ color: rgba(255,255,255,.88); font-size:16px; max-width:440px; }
+  .kontak .btn-primary{ background:#fff; color: var(--teal-dark); box-shadow:none; }
+  .kontak .btn-primary:hover{ background:#F3F3F3; }
+  .kontak-actions{ display:flex; flex-wrap:wrap; gap:14px; margin-top:26px; }
+  .kontak-info{
+    background: rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.25);
+    border-radius:20px; padding:26px;
+  }
+  .kontak-info .row{ display:flex; gap:14px; align-items:flex-start; padding:12px 0; border-bottom:1px solid rgba(255,255,255,.18); }
+  .kontak-info .row:last-child{ border-bottom:none; }
+  .kontak-info .row svg{ width:22px; height:22px; flex-shrink:0; margin-top:2px; }
+  .kontak-info .row a, .kontak-info .row span{ text-decoration:none; color:#fff; font-weight:600; font-size:15px; word-break: break-word; }
+  .kontak-info .row small{ display:block; font-weight:500; color: rgba(255,255,255,.75); font-size:12px; margin-bottom:2px; }
+
+  /* ---------- Footer ---------- */
+  footer{ border-top:1px solid var(--line); padding: 40px 0; }
+  .footer-inner{ display:flex; flex-wrap:wrap; justify-content:space-between; gap:16px; align-items:center; }
+  .footer-inner p{ font-size:14px; color: var(--ink-soft); }
+  .footer-links{ display:flex; gap:20px; list-style:none; padding:0; margin:0; }
+  .footer-links a{ font-size:14px; color: var(--ink-soft); text-decoration:none; font-weight:600; }
+  .footer-links a:hover{ color: var(--teal-dark); }
+
+  /* Floating WhatsApp button on mobile */
+  .wa-float{
+    position: fixed; bottom:20px; right:20px; z-index:60;
+    width:58px; height:58px; border-radius:50%;
+    background: var(--teal); color:#fff; display:flex; align-items:center; justify-content:center;
+    box-shadow: 0 12px 26px -8px rgba(47,156,143,.7);
+    text-decoration:none;
+  }
+  .wa-float svg{ width:28px; height:28px; }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:.001ms !important; transition-duration:.001ms !important; scroll-behavior:auto !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ HEADER ============ -->
+<header>
+  <nav class="nav wrap">
+    <a href="#" class="logo">
+      <span class="logo-mark">BB</span>
+      <!-- EDIT: course name -->
+      Bahasa Buddy
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about">About</a></li>
+      <li><a href="#why">Why Us</a></li>
+      <li><a href="#topics">Course Topics</a></li>
+      <li><a href="#testimonials">Reviews</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="#contact" class="btn btn-ghost">Contact</a>
+      <a id="waHeaderBtn" href="#" target="_blank" rel="noopener" class="btn btn-primary">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.29-1.39a9.9 9.9 0 0 0 4.75 1.21h.01c5.46 0 9.9-4.45 9.9-9.91C21.96 6.45 17.5 2 12.04 2Zm5.8 14.16c-.24.68-1.4 1.32-1.94 1.4-.5.08-1.11.11-1.79-.11-.41-.13-.94-.31-1.62-.6-2.86-1.23-4.72-4.09-4.87-4.29-.14-.19-1.16-1.55-1.16-2.96s.72-2.09.98-2.38c.24-.27.53-.34.71-.34h.5c.16 0 .38-.03.58.44.24.57.79 1.98.86 2.13.07.14.11.31.02.5-.08.19-.13.31-.26.47-.14.16-.28.36-.4.48-.13.13-.27.28-.12.55.16.27.71 1.17 1.52 1.9 1.05.94 1.93 1.23 2.2 1.37.27.13.43.11.59-.07.16-.19.68-.79.87-1.06.18-.27.36-.22.6-.13.24.08 1.53.72 1.79.85.27.14.44.2.51.31.06.13.06.68-.18 1.35Z"/></svg>
+        Chat on WhatsApp
+      </a>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round"/></svg>
+    </button>
+  </nav>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="about">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">✦ Beginner-friendly, zero pressure</span>
+      <!-- EDIT: main headline -->
+      <h1>Learn <em>real Bahasa Indonesia</em> and actually connect with the locals</h1>
+      <p class="lead">Friendly, easygoing Indonesian classes for travelers in Bali. No experience needed — start from zero and leave with phrases you'll actually use at the warung, the market, and on the street.</p>
+      <div class="hero-actions">
+        <a id="waHeroBtn" href="#" target="_blank" rel="noopener" class="btn btn-primary">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.29-1.39a9.9 9.9 0 0 0 4.75 1.21h.01c5.46 0 9.9-4.45 9.9-9.91C21.96 6.45 17.5 2 12.04 2Zm5.8 14.16c-.24.68-1.4 1.32-1.94 1.4-.5.08-1.11.11-1.79-.11-.41-.13-.94-.31-1.62-.6-2.86-1.23-4.72-4.09-4.87-4.29-.14-.19-1.16-1.55-1.16-2.96s.72-2.09.98-2.38c.24-.27.53-.34.71-.34h.5c.16 0 .38-.03.58.44.24.57.79 1.98.86 2.13.07.14.11.31.02.5-.08.19-.13.31-.26.47-.14.16-.28.36-.4.48-.13.13-.27.28-.12.55.16.27.71 1.17 1.52 1.9 1.05.94 1.93 1.23 2.2 1.37.27.13.43.11.59-.07.16-.19.68-.79.87-1.06.18-.27.36-.22.6-.13.24.08 1.53.72 1.79.85.27.14.44.2.51.31.06.13.06.68-.18 1.35Z"/></svg>
+          Join via WhatsApp
+        </a>
+        <a href="#topics" class="btn btn-ghost">See Course Topics</a>
+      </div>
+      <div class="hero-trust"><span class="dot"></span> Small groups &middot; flexible schedule &middot; taught by native speakers</div>
+    </div>
+
+    <!-- Signature element: flip cards — English prompt on front, Indonesian phrase you'll learn on the back -->
+    <div class="card-stack">
+      <div class="phrase-card face-en card-3" data-en="How much is this?" data-en-sub="Ask the price before you buy" data-id="Berapa harganya?" data-id-sub="beh-RAH-pah har-GAH-nyah">
+        <span class="tag">You want to ask</span>
+        <div class="main">How much is this?</div>
+        <div class="sub">Ask the price before you buy</div>
+        <div class="hint">Tap the card to see it in Indonesian →</div>
+      </div>
+      <div class="phrase-card face-en card-2" data-en="Is this spicy?" data-en-sub="Handy before you order lunch" data-id="Ini pedas, tidak?" data-id-sub="EE-nee puh-DAHS, TEE-dahk">
+        <span class="tag">You want to ask</span>
+        <div class="main">Is this spicy?</div>
+        <div class="sub">Handy before you order lunch</div>
+        <div class="hint">Tap the card to see it in Indonesian →</div>
+      </div>
+      <div class="phrase-card face-en card-1" data-en="Thank you very much" data-en-sub="A warm way to say thanks" data-id="Terima kasih banyak" data-id-sub="TREE-mah KAH-see BAH-nyahk">
+        <span class="tag">You want to say</span>
+        <div class="main">Thank you very much</div>
+        <div class="sub">A warm way to say thanks</div>
+        <div class="hint">Tap the card to see it in Indonesian →</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHY US ============ -->
+<section id="why">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Why learn with us</span>
+      <h2>Made for travelers, not textbooks</h2>
+      <p>This isn't an academic grammar course — it's practical conversation you can use the same day, taught patiently for absolute beginners.</p>
+    </div>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-icon" style="background:var(--teal)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20l9-5-9-5-9 5 9 5Z"/><path d="M12 10 3 5l9-5 9 5-9 5Z"/></svg>
+        </div>
+        <h3>Absolute beginners welcome</h3>
+        <p>Zero Indonesian needed. We start with the most basic words and sentences and build up slowly, at your pace.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon" style="background:var(--coral)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 12h8M12 8v8" stroke-linecap="round"/><circle cx="12" cy="12" r="9"/></svg>
+        </div>
+        <h3>Phrases you'll use today</h3>
+        <p>Every example comes from real traveler situations: ordering food, haggling at the market, chatting with your driver.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon" style="background:var(--mango)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/><circle cx="10" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <h3>Small groups, real talking time</h3>
+        <p>Classes stay small so you get plenty of speaking practice, not just listening. Gentle correction as you go.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon" style="background:var(--teal)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v3M16 3v3" stroke-linecap="round"/></svg>
+        </div>
+        <h3>Built around your trip</h3>
+        <p>Morning, afternoon, or evening — sessions fit your travel plans. One-off lessons or a short series, your call.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon" style="background:var(--coral)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 2 7l10 5 10-5-10-5Z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>Take-home phrase notes</h3>
+        <p>After every session you get a simple recap of phrases to review before your next chat with a local.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon" style="background:var(--mango)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m22 4-10 10-3-3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>Friendly, patient teachers</h3>
+        <p>No judgment on mispronunciation — our teachers love helping travelers try, laugh, and improve together.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COURSE TOPICS ============ -->
+<section class="materi" id="topics">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">What you'll learn</span>
+      <h2>Phrases you'll actually use around Bali</h2>
+      <p>Eight core topics — take them in order from the start, or pick the one you need most before your next outing.</p>
+    </div>
+    <div class="materi-grid">
+      <div class="materi-item"><span class="num">01</span><h3>Greetings &amp; small talk</h3><p>Say hello, introduce yourself, and keep a short chat going.</p></div>
+      <div class="materi-item"><span class="num">02</span><h3>Getting around</h3><p>Ask for directions, distances, and how to get somewhere by car or bike.</p></div>
+      <div class="materi-item"><span class="num">03</span><h3>Markets &amp; bargaining</h3><p>Ask prices, haggle politely, and know when a deal is fair.</p></div>
+      <div class="materi-item"><span class="num">04</span><h3>Ordering food &amp; drinks</h3><p>Read a menu, ask about spice level, allergies, and get recommendations.</p></div>
+      <div class="materi-item"><span class="num">05</span><h3>Hotels &amp; homestays</h3><p>Check in, ask about breakfast, wifi, and request what you need.</p></div>
+      <div class="materi-item"><span class="num">06</span><h3>Numbers &amp; money</h3><p>Count, understand prices, and handle everyday transactions with ease.</p></div>
+      <div class="materi-item"><span class="num">07</span><h3>Common signs &amp; situations</h3><p>Understand everyday signs, warnings, and simple written Indonesian.</p></div>
+      <div class="materi-item"><span class="num">08</span><h3>Polite requests &amp; thank-yous</h3><p>Ask nicely, say thanks, and leave a warm impression with locals.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HOW IT WORKS ============ -->
+<section id="flow">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">How to start</span>
+      <h2>Four easy steps to your first class</h2>
+    </div>
+    <div class="flow">
+      <div class="flow-step">
+        <div class="flow-badge">1</div>
+        <h3>Message us on WhatsApp</h3>
+        <p>Send a quick message and tell us a bit about your trip and current level.</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-badge">2</div>
+        <h3>Pick a time</h3>
+        <p>We match a schedule that fits your itinerary, even a single afternoon.</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-badge">3</div>
+        <h3>Try a first class</h3>
+        <p>Start with one session to see if the teaching style feels right for you.</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-badge">4</div>
+        <h3>Keep chatting with locals</h3>
+        <p>Continue with more sessions, with notes sent after every class via WhatsApp.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TESTIMONIALS ============ -->
+<section class="materi" id="testimonials">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">What travelers say</span>
+      <h2>Stories from past students</h2>
+      <!-- EDIT: replace with your real student reviews -->
+      <p>Sample reviews below — swap these for real student testimonials once you have them.</p>
+    </div>
+    <div class="testi-strip">
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="quote">I was nervous to even try, but after two sessions I could order food and bargain at the market on my own. So worth it.</p>
+        <div class="testi-who">
+          <div class="testi-avatar" style="background:var(--teal)">EM</div>
+          <div><strong>Emma</strong><span>Traveler from Australia</span></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="quote">Small class, lots of speaking time, and the phrases were exactly what I needed for my week in Bali.</p>
+        <div class="testi-who">
+          <div class="testi-avatar" style="background:var(--coral)">LK</div>
+          <div><strong>Lukas</strong><span>Traveler from Germany</span></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="quote">Our teacher was so patient and made mistakes feel totally fine. Locals genuinely lit up when I tried Bahasa.</p>
+        <div class="testi-who">
+          <div class="testi-avatar" style="background:var(--mango)">SP</div>
+          <div><strong>Sophie</strong><span>Traveler from the UK</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section id="contact">
+  <div class="wrap">
+    <div class="kontak">
+      <div>
+        <span class="eyebrow" style="background:rgba(255,255,255,.18); color:#fff;">✦ Let's get started</span>
+        <h2>Ready to speak a little Bahasa Indonesia? Message us first</h2>
+        <p>Tell us about your trip on WhatsApp and we'll help you find the right class and schedule.</p>
+        <div class="kontak-actions">
+          <a id="waKontakBtn" href="#" target="_blank" rel="noopener" class="btn btn-primary">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.29-1.39a9.9 9.9 0 0 0 4.75 1.21h.01c5.46 0 9.9-4.45 9.9-9.91C21.96 6.45 17.5 2 12.04 2Zm5.8 14.16c-.24.68-1.4 1.32-1.94 1.4-.5.08-1.11.11-1.79-.11-.41-.13-.94-.31-1.62-.6-2.86-1.23-4.72-4.09-4.87-4.29-.14-.19-1.16-1.55-1.16-2.96s.72-2.09.98-2.38c.24-.27.53-.34.71-.34h.5c.16 0 .38-.03.58.44.24.57.79 1.98.86 2.13.07.14.11.31.02.5-.08.19-.13.31-.26.47-.14.16-.28.36-.4.48-.13.13-.27.28-.12.55.16.27.71 1.17 1.52 1.9 1.05.94 1.93 1.23 2.2 1.37.27.13.43.11.59-.07.16-.19.68-.79.87-1.06.18-.27.36-.22.6-.13.24.08 1.53.72 1.79.85.27.14.44.2.51.31.06.13.06.68-.18 1.35Z"/></svg>
+            Chat on WhatsApp Now
+          </a>
+          <a id="emailKontakBtn" href="#" class="btn btn-ghost" style="border-color:rgba(255,255,255,.5); color:#fff;">Send an Email</a>
+        </div>
+      </div>
+      <div class="kontak-info">
+        <div class="row">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.29-1.39a9.9 9.9 0 0 0 4.75 1.21h.01c5.46 0 9.9-4.45 9.9-9.91C21.96 6.45 17.5 2 12.04 2Z"/></svg>
+          <div><small>WhatsApp</small><span id="waTextDisplay">+62 8xx-xxxx-xxxx</span></div>
+        </div>
+        <div class="row">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div><small>Email</small><a id="emailTextDisplay" href="#">hello@bahasabuddy.id</a></div>
+        </div>
+        <div class="row">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3" stroke-linecap="round"/></svg>
+          <div><small>Reply hours</small><span>Every day, 9am–8pm (Bali time / WITA)</span></div>
+        </div>
+        <div class="row">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-4.5-9.5-9A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 6c-2.5 4.5-9.5 9-9.5 9Z"/></svg>
+          <div><small>Class location</small><span>Denpasar, Bali (in-person &amp; online)</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap footer-inner">
+    <p>&copy; <span id="year"></span> Bahasa Buddy. Made warmly for travelers curious about Indonesia.</p>
+    <ul class="footer-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#topics">Topics</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</footer>
+
+<!-- Floating WhatsApp button -->
+<a id="waFloatBtn" href="#" target="_blank" rel="noopener" class="wa-float" aria-label="Chat on WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.29-1.39a9.9 9.9 0 0 0 4.75 1.21h.01c5.46 0 9.9-4.45 9.9-9.91C21.96 6.45 17.5 2 12.04 2Zm5.8 14.16c-.24.68-1.4 1.32-1.94 1.4-.5.08-1.11.11-1.79-.11-.41-.13-.94-.31-1.62-.6-2.86-1.23-4.72-4.09-4.87-4.29-.14-.19-1.16-1.55-1.16-2.96s.72-2.09.98-2.38c.24-.27.53-.34.71-.34h.5c.16 0 .38-.03.58.44.24.57.79 1.98.86 2.13.07.14.11.31.02.5-.08.19-.13.31-.26.47-.14.16-.28.36-.4.48-.13.13-.27.28-.12.55.16.27.71 1.17 1.52 1.9 1.05.94 1.93 1.23 2.2 1.37.27.13.43.11.59-.07.16-.19.68-.79.87-1.06.18-.27.36-.22.6-.13.24.08 1.53.72 1.79.85.27.14.44.2.51.31.06.13.06.68-.18 1.35Z"/></svg>
+</a>
+
+<!--
+  =====================================================================
+  MAIN SETTINGS — CHANGE THE VALUES BELOW TO MATCH YOUR DATA
+  =====================================================================
+-->
+<script id="site-config">
+  const SITE_CONFIG = {
+    // WhatsApp number with country code, NO "+" and NO spaces. Example (Indonesia): "628123456789"
+    whatsappNumber: "628123657650",
+    // Auto-filled message shown when someone taps a WhatsApp button (in English, for foreign travelers)
+    whatsappMessage: "Hi! I'd like to know more about the Indonesian classes 🙌",
+    // Contact email address
+    email: "devaputra831@gmail.com",
+    // WhatsApp number as displayed on the page (can include spaces/dashes)
+    whatsappDisplay: "+62 812-3657-650"
+  };
+
+  // ---- No need to edit below: this logic automatically uses SITE_CONFIG above ----
+  (function initContacts(){
+    const waLink = `https://wa.me/${SITE_CONFIG.whatsappNumber}?text=${encodeURIComponent(SITE_CONFIG.whatsappMessage)}`;
+    const mailLink = `mailto:${SITE_CONFIG.email}`;
+
+    document.querySelectorAll('#waHeaderBtn, #waHeroBtn, #waKontakBtn, #waFloatBtn').forEach(el => el.href = waLink);
+    document.querySelectorAll('#emailKontakBtn, #emailTextDisplay').forEach(el => el.href = mailLink);
+
+    const emailText = document.getElementById('emailTextDisplay');
+    if (emailText) emailText.textContent = SITE_CONFIG.email;
+
+    const waText = document.getElementById('waTextDisplay');
+    if (waText) waText.textContent = SITE_CONFIG.whatsappDisplay;
+  })();
+
+  // Mobile menu
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+  navToggle?.addEventListener('click', () => navLinks.classList.toggle('open'));
+  navLinks?.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+  // Auto year in footer
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Signature element: flip cards toggle between English prompt and Indonesian phrase
+  document.querySelectorAll('.phrase-card').forEach(card => {
+    let showingId = false;
+    card.addEventListener('click', () => {
+      showingId = !showingId;
+      const main = card.querySelector('.main');
+      const sub = card.querySelector('.sub');
+      const tag = card.querySelector('.tag');
+      const hint = card.querySelector('.hint');
+      if (showingId) {
+        main.textContent = card.dataset.id;
+        sub.textContent = card.dataset.idSub;
+        tag.textContent = 'In Indonesian';
+        hint.textContent = '← Tap again for English';
+        card.classList.remove('face-en'); card.classList.add('face-id');
+      } else {
+        main.textContent = card.dataset.en;
+        sub.textContent = card.dataset.enSub;
+        tag.textContent = 'You want to say';
+        hint.textContent = 'Tap the card to see it in Indonesian →';
+        card.classList.remove('face-id'); card.classList.add('face-en');
+      }
+      card.style.transform = 'scale(1.03) rotate(0deg)';
+      setTimeout(() => card.style.transform = '', 220);
+    });
+  });
+</script>
+</body>
+</html>
